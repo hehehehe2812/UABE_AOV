@@ -26,9 +26,17 @@
         "Export_Texture": "匯出圖片",
         "Import_Texture": "匯入圖片",
         "Export_Mesh": "匯出模型(.obj)",
+        "Save": "保存並退出",
         "Pick_Output_Folder": "選擇目的資料夾",
         "Pick_Input_Raw": "選擇.dat文件",
-        "Pick_Input_Texture": "選擇.png文件"
+        "Pick_Input_Texture": "選擇.png文件",
+        "Dialog_Title": "提示",
+        "Dialog_Message_Export_Complete": "匯出完成！",
+        "Dialog_Message_Select_One_Raw": "請選擇「1個」項目！",
+        "Dialog_Message_Import_Success": "匯入成功！",
+        "Save_File": "請選擇存檔位置",
+        "Save_Successful": "存檔成功",
+        "Save_file_to": "檔案已儲存至："
     },
     "zh-cn": {
         "title": "传说对决UABE",
@@ -57,9 +65,17 @@
         "Export_Texture": "导出图片",
         "Import_Texture": "导入图片",
         "Export_Mesh": "导出模型(.obj)",
+        "Save": "保存并退出",
         "Pick_Output_Folder": "选择目的文件夹",
         "Pick_Input_Raw": "选择.dat文件",
-        "Pick_Input_Texture": "选择.png文件"
+        "Pick_Input_Texture": "选择.png文件",
+        "Dialog_Title": "提示",
+        "Dialog_Message_Export_Complete": "汇出完成！",
+        "Dialog_Message_Select_One_Raw": "请选择「1个」项目！ ",
+        "Dialog_Message_Import_Success": "汇入成功！",
+        "Save_File": "请选择存档位置",
+        "Save_Successful": "存档成功",
+        "Save_file_to": "档案已储存至："
     },
     "en": {
         "title": "Arena of Valor UABE",
@@ -88,8 +104,15 @@
         "Export_Texture": "Export Texture",
         "Import_Texture": "Import Texture",
         "Export_Mesh": "Export Mesh(.obj)",
+        "Save": "Save and exit",
         "Pick_Output_Folder": "Select Output Folder",
         "Pick_Input_Raw": "Select .dat file",
-        "Pick_Input_Texture": "Select .png file"
+        "Dialog_Title": "Hint",
+        "Dialog_Message_Export_Complete": "Export completed!",
+        "Dialog_Message_Select_One_Raw": "Please select \"one\" raw! ",
+        "Dialog_Message_Import_Success": "Import successful!",
+        "Save_File": "Please select the save location",
+        "Save_Successful": "Save successfully",
+        "Save_file_to": "File saved to:"
     }
 }

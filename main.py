@@ -1,13 +1,14 @@
 import tkinter as tk
-from tkinter import Menu, filedialog
+from tkinter import Menu, filedialog, messagebox
 from Config import Config  # Config 模組
 from About import About  # About 模組
 from AssetbundleUtils.AssetsList import list_assets_window
-import os
+import os, shutil
 
 
 Selected_File = None # 選擇的檔案
 PickFile_Title = "" #FilePicker 標題
+SaveFile_Title = "" #存檔 標題
 
 
 # 讓視窗置中
@@ -25,7 +26,7 @@ def center_window(win, offset_y=100):
 
 # 即時更新語言設定
 def reload_config():
-    global PickFile_Title
+    global PickFile_Title, SaveFile_Title
     lang, lang_code = Config.reload_config()
     
     root.title(lang["title"])
@@ -51,6 +52,8 @@ def reload_config():
 
     # FilePicker 標題
     PickFile_Title = lang["Pick_File"]
+    # SaveFile 標題
+    SaveFile_Title = lang["Save_File"]
 
 # 變更語言後，立即更新 UI
 def setting_languages(new_lang_code):
@@ -83,6 +86,35 @@ def Get_Assests():
     else:
         root.bell()
 
+def show_dialog(title, message):
+    """顯示一個簡單的對話框"""
+    messagebox.showinfo(title, message)
+
+# 保存 (複製出來)
+def save_assetbundle(lang):
+    # 讓使用者選擇新檔案名稱和位置
+    new_path = filedialog.asksaveasfilename(
+        title=SaveFile_Title,
+        defaultextension=".assetbundle",  # 預設副檔名，可依需求修改
+        filetypes=[("AssetBundle files", "*.assetbundle")]
+    )
+    
+    if not new_path:
+        return  # 使用者取消存檔
+
+    try:
+        shutil.move("./AssetbundleUtils/tmp/Output.assetbundle", new_path)  # 移動並重新命名檔案
+        show_dialog(lang["Save_Successful"], lang["Save_file_to"] + "\n" + new_path)
+    except Exception as e:
+        show_dialog("Save Failed", f"Error:\n{str(e)}")
+
+def on_close():
+    root.quit()  # 關閉 Tk() 主視窗
+    try:
+        shutil.rmtree("./AssetbundleUtils/tmp")
+    except:
+        print
+    
 
 # 初始化 GUI
 root = tk.Tk()
@@ -103,8 +135,8 @@ subMenu = Menu(menu, tearoff=0)
 menu.add_cascade(label=lang["file"], menu=subMenu)
 subMenu.add_command(label=lang["open_file"], command=open_file)
 # subMenu.add_command(label=lang["open_dir"])
-subMenu.add_command(label=lang["save"])
-subMenu.add_command(label=lang["exit"])
+subMenu.add_command(label=lang["save"], command=lambda: save_assetbundle(lang))
+subMenu.add_command(label=lang["exit"], command=on_close)
 # 幫助選單
 helpMenu = Menu(menu, tearoff=0)
 menu.add_cascade(label=lang["help"], menu=helpMenu)
@@ -117,6 +149,8 @@ langMenu.add_command(label=lang["zh_cn"], command=lambda: setting_languages("zh-
 langMenu.add_command(label=lang["english"], command=lambda: setting_languages("en"))
 # 選擇檔案標題
 PickFile_Title = lang["Pick_File"]
+# SaveFile 標題
+SaveFile_Title = lang["Save_File"]
 
 # 使用 Frame 包裹最外層的控件
 root_frame = tk.Frame(root, padx=13, pady=13)
@@ -132,6 +166,8 @@ label_file.pack(fill=tk.X, expand=True)
 # 按鈕
 Info_BTN = tk.Button(root_frame, text=lang["Info"], font=("Microsoft YaHei", 13), width=7, height=2, command=Get_Assests)
 Info_BTN.pack(side=tk.LEFT, padx=(10, 0))  # 加點間距，避免太擠
+
+root.protocol("WM_DELETE_WINDOW", on_close)
 
 # 視窗畫面置中
 root.update()  # 讓 Tkinter 先計算出視窗大小

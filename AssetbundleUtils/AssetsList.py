@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter import ttk, Toplevel, filedialog, messagebox
+from PIL import Image
 from Config import Config  # 引入 Config 模組
 import os, UnityPy_AOV
 
@@ -11,11 +12,11 @@ env = None  # 全域變數儲存 UnityPy 環境
 current_sort_col = "Name"
 ascending = True
 selected_items = []  # 用於記錄使用者選取的項目
+modified_assets = {}  # 用來記錄已修改的項目
 
 
 def center_window(win):
-    """讓視窗置中
-    """
+    """讓視窗置中"""
     win.update_idletasks()
     screen_width = win.winfo_screenwidth()
     screen_height = win.winfo_screenheight()
@@ -41,18 +42,19 @@ def list_assets_window(input_path):
         list_window = Toplevel()  # 正常運行時使用 Toplevel()
         list_window.grab_set()
         list_window.transient()
+        list_window.minsize(width=1000, height=600)  # 設定最小尺寸
         #list_window.attributes('-topmost', True)
 
     list_window.title(lang["List_Window_title"])
-    list_window.geometry("900x600")
+    list_window.geometry("1000x600")
     list_window.iconbitmap("icon.ico")
 
     frame = tk.Frame(list_window)
     frame.pack(fill=tk.BOTH, expand=True)
 
-    columns = ["Name", "Type", "Path ID", "Size"]
+    columns = ["Name", "Type", "Path ID", "Size", "Modified"]
     tree = ttk.Treeview(frame, columns=columns, show="headings")
-    column_widths = {"Name": 250, "Type": 130, "Path ID": 170, "Size": 60}
+    column_widths = {"Name": 250, "Type": 130, "Path ID": 170, "Size": 60, "Modified": 70}
 
     for col in columns:
         tree.heading(col, text=col, command=lambda c=col: sort_column(tree, c))
@@ -82,7 +84,7 @@ def list_assets_window(input_path):
     btn_frame.pack(fill="x", pady=5, padx=20)
     
     export_raw_btn = tk.Button(btn_frame, text=lang["Export_Raw"], command=lambda: export_raw(lang))
-    import_raw_btn = tk.Button(btn_frame, text=lang["Import_Raw"], command=lambda: import_raw(lang))
+    import_raw_btn = tk.Button(btn_frame, text=lang["Import_Raw"], command=lambda: import_raw(lang, tree))
     
     export_raw_btn.grid(row=0, column=0, sticky="ew", padx=5)
     import_raw_btn.grid(row=0, column=1, sticky="ew", padx=5)
@@ -95,7 +97,7 @@ def list_assets_window(input_path):
     btn_frame2.pack(fill="x", pady=5, padx=20)
     
     export_texture_btn = tk.Button(btn_frame2, text=lang["Export_Texture"], command=lambda: export_texture(lang))
-    import_texture_btn = tk.Button(btn_frame2, text=lang["Import_Texture"], command=lambda: import_texture(lang))
+    import_texture_btn = tk.Button(btn_frame2, text=lang["Import_Texture"], command=lambda: import_texture(lang, tree))
     
     export_texture_btn.grid(row=0, column=0, sticky="ew", padx=5)
     import_texture_btn.grid(row=0, column=1, sticky="ew", padx=5)
@@ -109,6 +111,16 @@ def list_assets_window(input_path):
     
     extra_btn = tk.Button(btn_frame3, text=lang["Export_Mesh"], command=lambda: export_mesh(lang))
     extra_btn.pack(fill="x", padx=5)  # 讓按鈕完全填滿
+    
+    # 增加間距
+    tk.Frame(info_frame, height=10, bg="#F0F0F0").pack(fill="x") 
+
+    # 保存退出按鈕
+    btn_frame4 = tk.Frame(info_frame, bg="#F0F0F0")
+    btn_frame4.pack(fill="x", pady=10, padx=20)  # 增加 pady 讓距離更遠
+    
+    new_extra_btn = tk.Button(btn_frame4, text=lang["Save"], command=lambda: save_and_exit())
+    new_extra_btn.pack(fill="x", padx=5)
 
     progress_var = tk.IntVar()
     progress_bar = ttk.Progressbar(list_window, variable=progress_var, maximum=100, mode='determinate')
@@ -131,7 +143,7 @@ def list_assets(input_path, tree, progress_var, progress_bar):
     total = len(env.objects)
 
     for i, obj in enumerate(env.objects, 1):
-        dump_tree = obj.read_typetree()
+        # dump_tree = obj.read_typetree()
         data = obj.read()
         name = getattr(data, 'm_Name', 'Unnamed asset') or "SpringNode"
         assets.append((name, obj.type.name, obj.path_id, obj.byte_size))
@@ -181,7 +193,7 @@ def on_item_selected(event, tree):
             selected_items.append(item_values)
     
     if selected_items:
-        name, asset_type, path_id, _ = selected_items[-1]
+        name, asset_type, path_id, *_ = selected_items[-1]
         update_entry(name_entry, name)
         update_entry(path_id_entry, path_id)
         update_entry(type_entry, asset_type)
@@ -192,13 +204,28 @@ def update_entry(entry, value):
     entry.delete("1.0", tk.END)
     entry.insert("1.0", value)
     entry.config(state="disabled")
-        
 
+def open_file(lang, type_name, Type):
+    file_path = filedialog.askopenfilename(
+        title=lang["Pick_File"],
+        filetypes=[(type_name, Type)]
+    )
+    if file_path:
+        return file_path
+    
+def refresh_modified_status(tree):
+    """更新 TreeView 中的 Modified 欄位"""
+    for item in tree.get_children():
+        values = tree.item(item, "values")
+        path_id = values[2]  # Path ID 在第三個欄位
+        modified_status = modified_assets.get(str(path_id), "")
+        tree.item(item, values=(values[0], values[1], values[2], values[3], modified_status))  # 更新 Modified 欄位
+        
 # 匯出項目
 def export_raw(lang):
     # print(selected_items)
     if not selected_items:
-        print("未選取任何項目")
+        # print("未選取任何項目")
         list_window.bell()
         return
     output_path = filedialog.askdirectory(title=lang["Pick_Output_Folder"])
@@ -215,13 +242,26 @@ def export_raw(lang):
             dest = os.path.join(output_path, f'{data.m_Name}_{path_ID}.dat')
             with open(dest, "wb") as f:
                 f.write(obj.get_raw_data())
-    print("匯出完成")
-    show_dialog("提示", "匯出完成！")
+    # print("匯出完成")
+    show_dialog(lang["Dialog_Title"], lang["Dialog_Message_Export_Complete"])
 
 # 匯入項目
-def import_raw(lang):
-    """待實作的導入功能"""
-    print("Import Raw 功能尚未實作")
+def import_raw(lang, tree):
+    if (len(selected_items) != 1):
+        show_dialog(lang["Dialog_Title"], lang["Dialog_Message_Select_One_Raw"])
+    else:
+        fp = open_file(lang, "Asset raw files", "*.dat")
+        if (fp != None):
+            # print(fp)
+            pathID = selected_items[0][2]
+            with open(fp, "rb") as f:
+                raw = f.read()  # 假設直接覆蓋數據
+            for obj in env.objects:
+                if str(obj.path_id) == pathID:
+                    obj.set_raw_data(raw)
+                    modified_assets[str(pathID)] = "*"  # 標記已修改
+            refresh_modified_status(tree)
+            show_dialog(lang["Dialog_Title"], lang["Dialog_Message_Import_Success"])
 
 # 匯出圖片
 def export_texture(lang):
@@ -248,13 +288,29 @@ def export_texture(lang):
                     img.save(dest)
                 except:
                     print
-    print("匯出完成")
-    show_dialog("提示", "匯出完成！")
+    # print("匯出完成")
+    show_dialog(lang["Dialog_Title"], lang["Dialog_Message_Export_Complete"])
 
 # 匯入圖片
-def import_texture(lang):
-    """待實作的導入功能"""
-    print("Import Texture 功能尚未實作")
+def import_texture(lang, tree):
+    if (len(selected_items) != 1):
+        show_dialog(lang["Dialog_Title"], lang["Dialog_Message_Select_One_Raw"])
+    else:
+        fp = open_file(lang, "Image files", "*.png")
+        if (fp != None):
+            # print(fp)
+            pathID = selected_items[0][2]
+            pil_img = Image.open(fp)
+            for obj in env.objects:
+                if str(obj.path_id) == pathID:
+                    data = obj.read()
+                    data.image = pil_img
+                    data.save()
+                    modified_assets[str(pathID)] = "*"  # 標記已修改
+            
+            
+            refresh_modified_status(tree)
+            show_dialog(lang["Dialog_Title"], lang["Dialog_Message_Import_Success"])
 
 # 匯出模型
 def export_mesh(lang):
@@ -278,8 +334,8 @@ def export_mesh(lang):
                 dest = os.path.join(output_path, f'{data.m_Name}_{path_ID}.obj')
                 with open(dest, "w") as f:
                     f.write(data.export())
-    print("匯出完成")
-    show_dialog("提示", "匯出完成！")
+    # print("匯出完成")
+    show_dialog(lang["Dialog_Title"], lang["Dialog_Message_Export_Complete"])
 
 
 def sort_column(tree, col):
@@ -320,6 +376,15 @@ def on_close():
     if DEBUG:
         root.quit()  # 在調適模式下，關閉 Tk() 主視窗
 
+def save_and_exit():
+    global list_window
+    os.makedirs("./AssetbundleUtils/tmp",exist_ok=True)
+    with open("./AssetbundleUtils/tmp/Output.assetbundle", "wb") as f:
+        f.write(env.file.save("lz4"))
+    if list_window:
+        list_window.destroy()
+        list_window = None
+
 
 # 切換為調適模式
 # Debug 模式可直接運行該py
@@ -328,6 +393,6 @@ DEBUG = False
 if DEBUG:
     root = tk.Tk()  # 創建主視窗
     root.withdraw()  # 隱藏主視窗
-    file_path = "C:\\Users\\JamesYang\\Downloads\\50120\\50120_telannas_show_raw_h.assetbundle"
+    file_path = "C:/Users/xxx/Downloads/50120/50120_telannas_show_raw_h.assetbundle"
     root.after(100, lambda: list_assets_window(file_path))
     root.mainloop()

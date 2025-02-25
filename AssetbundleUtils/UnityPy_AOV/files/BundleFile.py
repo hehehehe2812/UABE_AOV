@@ -2,7 +2,7 @@
 from collections import namedtuple
 import re
 from typing import Tuple
-from Crypto.Cipher import AES
+from Cryptodome.Cipher import AES
 from . import File
 from ..enums import ArchiveFlags, ArchiveFlagsOld, CompressionFlags
 from ..helpers import ArchiveStorageManager, CompressionHelper

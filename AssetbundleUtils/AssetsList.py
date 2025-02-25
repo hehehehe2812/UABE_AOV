@@ -2,7 +2,9 @@ import tkinter as tk
 from tkinter import ttk, Toplevel, filedialog, messagebox
 from PIL import Image
 from Config import Config  # 引入 Config 模組
-import os, UnityPy_AOV
+import os
+from AssetbundleUtils import UnityPy_AOV
+
 
 DEBUG = False  # 切換為 True 進入調適模式
 

@@ -1,7 +1,7 @@
 import ctypes
 import os
 import platform
-from UnityPy_AOV.streams import EndianBinaryWriter
+from AssetbundleUtils.UnityPy_AOV.streams import EndianBinaryWriter
 
 # pyfmodex loads the dll/so/dylib on import
 # so we have to adjust the environment vars

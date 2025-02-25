@@ -1,4 +1,4 @@
-from UnityPy_AOV.classes import Mesh
+from AssetbundleUtils.UnityPy_AOV.classes import Mesh
 
 
 def export_mesh(m_Mesh: Mesh, format="obj") -> str:

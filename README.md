@@ -8,11 +8,6 @@
 Based on K0lb3's UnityPy, and modified version of HEXAOV's ( with AOV encryption and decryption stream ), self-made UI graphical interface tool, which can be used to modify Raw and Texture, supports batch export, and can also export Mesh to .obj files. Opening directories is not currently supported.
 
 
-## 目錄
-- [功能](https://github.com/KennyYang0726/UABE_AOV#功能)
-- [使用範例](https://github.com/KennyYang0726/UABE_AOV#使用範例)
-
-
 ## 使用方式
 1. [下載 Release 版本並解壓](https://github.com/KennyYang0726/UABE_AOV/releases)
 2. 運行 .exe 應用程式 ( 請勿 刪除/移動 內容任何文件 )
@@ -44,7 +39,7 @@ Based on K0lb3's UnityPy, and modified version of HEXAOV's ( with AOV encryption
     <th colspan="4" style="text-align: center; font-size: 24px;">效果演示</th>
   </tr>
   <tr>
-    <td colspan="4" style="text-align: center;"><img src="https://github.com/KennyYang0726/UABE_AOV/raw/refs/heads/main/.readme_assets/xxx.gif" width="800"></td>
+    <td colspan="4" style="text-align: center;"><img src="https://github.com/KennyYang0726/UABE_AOV/raw/refs/heads/main/.readme_assets/anim_output.gif" width="800"></td>
   </tr>
   <tr>
     <th colspan="4" style="text-align: center; font-size: 24px;">匯出&匯入 Texture</th>
@@ -56,7 +51,7 @@ Based on K0lb3's UnityPy, and modified version of HEXAOV's ( with AOV encryption
     <th colspan="4" style="text-align: center; font-size: 24px;">效果演示</th>
   </tr>
   <tr>
-    <td colspan="4" style="text-align: center;"><img src="https://github.com/KennyYang0726/UABE_AOV/raw/refs/heads/main/.readme_assets/xxx.gif" width="800"></td>
+    <td colspan="4" style="text-align: center;"><img src="https://github.com/KennyYang0726/UABE_AOV/raw/refs/heads/main/.readme_assets/texture_output.gif" width="800"></td>
   </tr>
 </table>
 

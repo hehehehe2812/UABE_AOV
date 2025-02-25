@@ -45,7 +45,7 @@ Based on K0lb3's UnityPy, and modified version of HEXAOV's ( with AOV encryption
     <th colspan="4" style="text-align: center; font-size: 24px;">匯出&匯入 Texture</th>
   </tr>
   <tr>
-    <td colspan="4" style="text-align: center;"><img src="https://github.com/KennyYang0726/UABE_AOV/raw/refs/heads/main/.readme_assets/xxx.gif" width="800"></td>
+    <td colspan="4" style="text-align: center;"><img src="https://github.com/KennyYang0726/UABE_AOV/raw/refs/heads/main/.readme_assets/texture.gif" width="800"></td>
   </tr>
   <tr>
     <th colspan="4" style="text-align: center; font-size: 24px;">效果演示</th>

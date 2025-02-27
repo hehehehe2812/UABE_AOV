@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import Menu, filedialog, messagebox
 from Config import Config  # Config 模組
 from About import About  # About 模組
+from UI.CenterWindows import center_window
 from AssetbundleUtils.AssetsList import list_assets_window
 import os, shutil
 
@@ -10,19 +11,6 @@ Selected_File = None # 選擇的檔案
 PickFile_Title = "" #FilePicker 標題
 SaveFile_Title = "" #存檔 標題
 
-
-# 讓視窗置中
-def center_window(win, offset_y=100):
-    win.update_idletasks()  # 更新視窗資訊
-    screen_width = win.winfo_screenwidth()
-    screen_height = win.winfo_screenheight()
-    window_width = win.winfo_width()
-    window_height = win.winfo_height()
-    
-    x = (screen_width - window_width) // 2
-    y = (screen_height - window_height) // 2 - offset_y  # 上移 offset_y 像素
-    
-    win.geometry(f"{window_width}x{window_height}+{x}+{y}")
 
 # 即時更新語言設定
 def reload_config():
@@ -171,6 +159,6 @@ root.protocol("WM_DELETE_WINDOW", on_close)
 
 # 視窗畫面置中
 root.update()  # 讓 Tkinter 先計算出視窗大小
-center_window(root)
+center_window(root, 100)
 
 root.mainloop()

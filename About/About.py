@@ -1,21 +1,10 @@
 import tkinter as tk
 from tkinter import Toplevel
+from UI.CenterWindows import center_window
 from Config import Config  # 引入 Config 模組
 
 about_window = None  # 全域變數，避免重複開啟視窗
 
-# 讓視窗置中
-def center_window(win):
-    win.update_idletasks()  # 更新視窗資訊
-    screen_width = win.winfo_screenwidth()
-    screen_height = win.winfo_screenheight()
-    window_width = win.winfo_width()
-    window_height = win.winfo_height()
-    
-    x = (screen_width - window_width) // 2
-    y = (screen_height - window_height) // 2
-    
-    win.geometry(f"{window_width}x{window_height}+{x}+{y}")
 
 def About():
     global about_window
@@ -45,7 +34,7 @@ def About():
     title_label = tk.Label(about_window, text=lang["title"], font=("Microsoft YaHei", 23, "bold"))
     title_label.grid(row=0, column=0, padx=20, pady=10, sticky="w")
     
-    version_label = tk.Label(about_window, text="Version : 1.0.0", font=("Microsoft YaHei", 13))
+    version_label = tk.Label(about_window, text="Version : 1.0.1", font=("Microsoft YaHei", 13))
     version_label.grid(row=0, column=1, padx=20, pady=10, sticky="w")
     
     desc_label = tk.Label(
@@ -68,7 +57,7 @@ def About():
 
     # 視窗畫面置中
     about_window.update()  # 讓 Tkinter 先計算出視窗大小
-    center_window(about_window)
+    center_window(about_window, 0)
 
     # 延遲焦點設置
     about_window.after(1, force_focus)  # 1 毫秒後強制焦點

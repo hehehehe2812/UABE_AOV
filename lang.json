@@ -36,7 +36,10 @@
         "Dialog_Message_Import_Success": "匯入成功！",
         "Save_File": "請選擇存檔位置",
         "Save_Successful": "存檔成功",
-        "Save_file_to": "檔案已儲存至："
+        "Save_file_to": "檔案已儲存至：",
+        "Info_tab": "資訊",
+        "Preview_tab": "預覽",
+        "Preview_not_available": "資產\n無法\n預覽"
     },
     "zh-cn": {
         "title": "传说对决UABE",
@@ -75,7 +78,10 @@
         "Dialog_Message_Import_Success": "汇入成功！",
         "Save_File": "请选择存档位置",
         "Save_Successful": "存档成功",
-        "Save_file_to": "档案已储存至："
+        "Save_file_to": "档案已储存至：",
+        "Info_tab": "信息",
+        "Preview_tab": "预览",
+        "Preview_not_available": "资产\n无法\n预览"
     },
     "en": {
         "title": "Arena of Valor UABE",
@@ -113,6 +119,9 @@
         "Dialog_Message_Import_Success": "Import successful!",
         "Save_File": "Please select the save location",
         "Save_Successful": "Save successfully",
-        "Save_file_to": "File saved to:"
+        "Save_file_to": "File saved to:",
+        "Info_tab": "Info",
+        "Preview_tab": "Preview",
+        "Preview_not_available": "Preview\nnot\navailable"
     }
 }

@@ -1,7 +1,7 @@
 import os
 from tkinter import filedialog, messagebox
 from PIL import Image
-
+from .UnityPy_AOV.enums import TextureFormat
 """
 這是所有 匯出/匯入 功能集
 """
@@ -107,7 +107,8 @@ def import_texture(lang, tree):
             for obj in env_list[indexFile].objects:
                 if str(obj.path_id) == pathID:
                     data = obj.read()
-                    data.set_image( pil_img , 4)
+                    data.m_TextureFormat = TextureFormat.RGBA32 # Fix photo quality loss
+                    data.image = pil_img
                     data.save()
                     modified_assets[str(pathID)] = "*"  # Mark as modified
                     refresh_modified_status(tree)

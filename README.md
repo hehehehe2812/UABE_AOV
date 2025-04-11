@@ -5,8 +5,7 @@
 
 基於 K0lb3 的 UnityPy，加入 常暗踏影 魔改版 ( 加入AOV專屬加解密流 )，自製 UI 圖形介面化工具的 UABE，可以用來修改 Raw 和 Texture，支持批量導出，也可對 Mesh 導出成 .obj 模型。目前尚不支持開啟整個目錄。
 
-Based on K0lb3's UnityPy, and modified version of HEXAOV's ( with AOV encryption and decryption stream ), self-made UI graphical interface tool, which can be used to modify Raw and Texture, supports batch export, and can also export Mesh to .obj files. Opening directories is not currently supported.
-
+Based on K0lb3's UnityPy, and modified version of HEXAOV's ( with AOV encryption and decryption stream ), self-made UI graphical interface tool, which can be used to modify Raw and Texture, supports batch export, and can also export Mesh to .obj files
 
 ## 使用方式
 1. [下載 Release 版本並解壓](https://github.com/KennyYang0726/UABE_AOV/releases)

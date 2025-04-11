@@ -169,15 +169,16 @@ class ObjectReader:
                 if return_typetree_on_error:
                     print(f"Error during the parsing of object {self.path_id}")
                     print(e)
-                    print("Returning the typetree")
+                    print("Returning the typetree") 
                 else:
-                    raise e
                 """
+ 
         if not obj:
             typetree = self.read_typetree()
             if typetree:
                 obj = NodeHelper(typetree, self.assets_file)
         self._read_until = self.reader.Position
+        self.reset()
         return obj
 
     def get(self, key, default=None):

@@ -17,7 +17,7 @@ def About():
 
     about_window = Toplevel()
     about_window.title(lang["about"])
-    about_window.geometry("540x200")
+    about_window.geometry(lang["geometry_about"])
 
     # 禁止最小化和放大
     about_window.resizable(False, False)  
@@ -34,7 +34,7 @@ def About():
     title_label = tk.Label(about_window, text=lang["title"], font=("Microsoft YaHei", 23, "bold"))
     title_label.grid(row=0, column=0, padx=20, pady=10, sticky="w")
     
-    version_label = tk.Label(about_window, text="Version : 1.0.1", font=("Microsoft YaHei", 13))
+    version_label = tk.Label(about_window, text="Version : 1.0.2", font=("Microsoft YaHei", 13))
     version_label.grid(row=0, column=1, padx=20, pady=10, sticky="w")
     
     desc_label = tk.Label(
@@ -42,7 +42,7 @@ def About():
         text=lang["about_text"],
         wraplength=460,
         justify="left",
-        font=("Microsoft YaHei", 13)
+        font=("Microsoft YaHei", 12)
     )
     desc_label.grid(row=2, column=0, columnspan=2, padx=20, pady=10, sticky="w")
 

@@ -6,12 +6,12 @@ from PIL import Image
 
 # These global variables are assumed to be defined in the main script
 # and will be accessed and modified here.
-env = None  # UnityPy environment, to be set from the main script
-
+env_list= None  # UnityPy environment, to be set from the main script
+indexFile = 0
 # 檢視 assets
 def preview_assets(path_id):
-    global env
-    for obj in env.objects:
+    global env_list  , indexFile
+    for obj in env_list[indexFile].objects:
         if str(obj.path_id) == path_id:
             data = obj.read()
             if obj.type.name.lower() in ["texture2d", "sprite"]:

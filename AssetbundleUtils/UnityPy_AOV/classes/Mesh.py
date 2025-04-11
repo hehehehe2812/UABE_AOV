@@ -12,10 +12,7 @@ import struct
 from enum import IntEnum
 from ..export import MeshExporter
 
-try:
-    from UnityPy import UnityPyBoost
-except:
-    UnityPyBoost = None
+UnityPyBoost = None
 
 
 class MinMaxAABB:

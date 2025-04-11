@@ -12,15 +12,18 @@ from AssetbundleUtils import UnityPy_AOV
 
 list_window = None  # 避免重複開啟視窗
 global current_sort_col, ascending
-env = None  # 全域變數儲存 UnityPy 環境
+env_list = []  # 全域變數儲存 UnityPy 環境
 current_sort_col = "Name"
 ascending = True
 selected_items = []  # 用於記錄使用者選取的項目
 modified_assets = {}  # 用來記錄已修改的項目
+isDir = False
+indexFile = 0
+list_path = []
 
-
-def list_assets_window(input_path):
-    global list_window, name_entry, path_id_entry, type_entry, env, preview_label, obj_viewer
+def list_assets_window(input_path , IsInputDir = False):
+    global list_window,name_file_entry, name_entry, path_id_entry, type_entry, env, preview_label, obj_viewer , isDir
+    isDir = IsInputDir
     if list_window and list_window.winfo_exists():
         list_window.lift()
         return
@@ -34,15 +37,20 @@ def list_assets_window(input_path):
     #list_window.attributes('-topmost', True)
 
     list_window.title(lang["List_Window_title"])
-    list_window.geometry("1000x600")
+    list_window.geometry("1200x600")
     list_window.iconbitmap("icon.ico")
 
     frame = tk.Frame(list_window)
     frame.pack(fill=tk.BOTH, expand=True)
 
-    columns = ["Name", "Type", "Path ID", "Size", "Modified"]
-    tree = ttk.Treeview(frame, columns=columns, show="headings")
+    columns = [ "Name", "Type", "Path ID", "Size", "Modified"]
     column_widths = {"Name": 250, "Type": 130, "Path ID": 170, "Size": 60, "Modified": 70}
+
+    if isDir:
+        columns.insert(0,"File")
+        column_widths["File"] = 10
+
+    tree = ttk.Treeview(frame, columns=columns, show="headings")
 
     for col in columns:
         tree.heading(col, text=col, command=lambda c=col: sort_column(tree, c))
@@ -72,6 +80,7 @@ def list_assets_window(input_path):
         entry.pack(padx=20, pady=5)
         return entry
 
+    name_file_entry = create_label_entry(info_tab, lang["File_Name"])
     name_entry = create_label_entry(info_tab, lang["Name"])
     path_id_entry = create_label_entry(info_tab, lang["PathID"])
     type_entry = create_label_entry(info_tab, lang["Type"])
@@ -145,25 +154,32 @@ def list_assets_window(input_path):
     list_window.after(100, lambda: list_assets(input_path, tree, progress_var, progress_bar))
 
 def list_assets(input_path, tree, progress_var, progress_bar):
-    global env
-    env = UnityPy_AOV.load(input_path)
+    global env_list , list_path
+    list_path = [ os.path.join(input_path, file_name) for file_name in os.listdir(input_path) if os.path.isfile(os.path.join(input_path, file_name) ) and "assetbundle" in file_name.lower()] if isDir  else [ input_path ] 
+    assets = []
+    env_list = []
+    for j , path in enumerate(list_path, 0):
+        env = UnityPy_AOV.load(path)
+        total = 0
+        total= len(env.objects)
+        env_list.append(env)
+        for i, obj in enumerate(env.objects, 1):
+            # dump_tree = obj.read_typetree()
+            data = obj.read()
+            name = getattr(data, 'm_Name', 'Unnamed asset') or "SpringNode"
+            if isDir:
+                assets.append((j , name, obj.type.name, obj.path_id, obj.byte_size))
+            else:
+                assets.append((name, obj.type.name, obj.path_id, obj.byte_size))
+            progress_var.set(int((i / total) * 100))
+            tree.update_idletasks()
 
     # 更新 AssetOperations 中的 env
-    AssetbundleUtils.AssetOperations.env = env
+    AssetbundleUtils.AssetOperations.env_list = env_list
     AssetbundleUtils.AssetOperations.list_window = list_window
     # 更新 PreviewAsset 中的 env
-    AssetbundleUtils.PreviewAsset.env = env
-
-    assets = []
-    total = len(env.objects)
-
-    for i, obj in enumerate(env.objects, 1):
-        # dump_tree = obj.read_typetree()
-        data = obj.read()
-        name = getattr(data, 'm_Name', 'Unnamed asset') or "SpringNode"
-        assets.append((name, obj.type.name, obj.path_id, obj.byte_size))
-        progress_var.set(int((i / total) * 100))
-        tree.update_idletasks()
+    AssetbundleUtils.PreviewAsset.env_list = env_list
+    AssetbundleUtils.AssetOperations.PathIDIndex = 3 if isDir else 2
     
     assets.sort(key=lambda x: x[0])
     update_treeview(tree, assets)
@@ -226,8 +242,17 @@ def on_item_selected(lang, tree, notebook):
     AssetbundleUtils.AssetOperations.selected_items = selected_items
 
     if selected_items:
-        name, asset_type, path_id, *_ = selected_items[-1]
-        update_entry(name_entry, name)
+        if isDir:
+            i , name, asset_type, path_id, *_= selected_items[-1]
+            i = int(i)
+        else:
+            name, asset_type, path_id, *_ = selected_items[-1]
+            i = 0
+        
+        AssetbundleUtils.AssetOperations.indexFile = i
+        AssetbundleUtils.PreviewAsset.indexFile = i
+        update_entry(name_file_entry, os.path.basename( list_path[i] ))
+        update_entry(name_entry , name)
         update_entry(path_id_entry, path_id)
         update_entry(type_entry, asset_type)
 
@@ -308,8 +333,11 @@ def on_close():
 def save_and_exit():
     global list_window
     os.makedirs("./AssetbundleUtils/tmp",exist_ok=True)
-    with open("./AssetbundleUtils/tmp/Output.assetbundle", "wb") as f:
-        f.write(env.file.save("lz4"))
+    for i , path in enumerate(list_path, 0):
+        name = os.path.basename( list_path[i] )
+        env = env_list[i]
+        with open(f"./AssetbundleUtils/tmp/{name}", "wb") as f:
+            f.write(env.file.save("lz4"))
     if list_window:
         list_window.destroy()
         list_window = None

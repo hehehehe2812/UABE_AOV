@@ -7,10 +7,7 @@ from ..enums import ClassIDType
 from ..math import Quaternion, Vector3
 from ..streams import EndianBinaryReader
 
-try:
-    from UnityPy import UnityPyBoost
-except ImportError:
-    UnityPyBoost = None
+UnityPyBoost = None
 
 
 def uint(num):

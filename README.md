@@ -1,18 +1,17 @@
+[繁體中文](README.md) | [English](README.en.md) | [Tiếng Việt](README.vi.md)
+
 <img style="width:64px" src="https://github.com/KennyYang0726/UABE_AOV/raw/refs/heads/main/icon.ico" />
 
 # UABE 傳說對決專用
-> UABE for Arena of Valor assetbundle files  
 
-基於 K0lb3 的 UnityPy，加入 常暗踏影 魔改版 ( 加入AOV專屬加解密流 )，自製 UI 圖形介面化工具的 UABE，可以用來修改 Raw 和 Texture，支持批量導出，也可對 Mesh 導出成 .obj 模型。目前尚不支持開啟整個目錄。
+基於 K0lb3 的 UnityPy，加入 常暗踏影 魔改版 ( 加入AOV專屬加解密流 )，自製 UI 圖形介面化工具的 UABE，可以用來修改 Raw 和 Texture，支持批量導出，也可對 Mesh 導出成 .obj 模型。目前已支持開啟整個目錄。
 
-Based on K0lb3's UnityPy, and modified version of HEXAOV's ( with AOV encryption and decryption stream ), self-made UI graphical interface tool, which can be used to modify Raw and Texture, supports batch export, and can also export Mesh to .obj files
 
 ## 使用方式
 1. [下載 Release 版本並解壓](https://github.com/KennyYang0726/UABE_AOV/releases)
 2. 運行 .exe 應用程式 ( 請勿 刪除/移動 內容任何文件 )
 3. 開啟 .assetbundle 文件 ( 必須是新版AOV的文件，若使用舊版/非AOV的文件無法使用 )
 4. 開始使用各功能 ( 導出/導入 )
-> 請注意，必須先安裝 傳說對決 才能使用此應用程序
 
 
 ## 功能
@@ -54,12 +53,6 @@ Based on K0lb3's UnityPy, and modified version of HEXAOV's ( with AOV encryption
   </tr>
 </table>
 
-
-
-
-## 未來功能
-
-看我有沒有空吧，沒空就算了
 
 ## 附屬工具
 - [AssetStudio AOV](https://drive.google.com/file/d/1h0kqx-nEH38kWvCaA-aX7Ir2-ioFNFQw/view?usp=sharing)

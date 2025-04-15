@@ -17,7 +17,7 @@ SaveFile_Title = ""  # 存檔 標題
 
 # 即時更新語言設定
 def reload_config():
-    global PickFile_Title, SaveFile_Title
+    global PickFile_Title, PickDir_Title, SaveFile_Title
     lang, lang_code = Config.reload_config()
 
     root.title(lang["title"])
@@ -210,7 +210,7 @@ Info_BTN = tk.Button(
     root_frame,
     text=lang["Info"],
     font=("Microsoft YaHei", 13),
-    width=7,
+    width=8,
     height=2,
     command=Get_Assests,
 )

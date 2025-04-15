@@ -48,7 +48,7 @@ def import_raw(lang, tree):
     if len(selected_items) != 1:
         show_dialog(lang["Dialog_Title"], lang["Dialog_Message_Select_One_Raw"])
     else:
-        fp = open_file(lang, "Asset raw files", "*.dat")
+        fp = open_file(lang, "Pick_Input_Raw", "Asset raw files", "*.dat")
         if fp:
             pathID = selected_items[0][PathIDIndex]
             with open(fp, "rb") as f:
@@ -99,7 +99,7 @@ def import_texture(lang, tree):
     if len(selected_items) != 1:
         show_dialog(lang["Dialog_Title"], lang["Dialog_Message_Select_One_Raw"])
     else:
-        fp = open_file(lang, "Image files", "*.png")
+        fp = open_file(lang, "Pick_Input_Texture", "Image files", "*.png")
         if fp:
             pathID = selected_items[0][PathIDIndex]
             pil_img = Image.open(fp)
@@ -143,10 +143,10 @@ def export_mesh(lang):
 
 
 # Helper functions (you might need to adapt these based on your main script)
-def open_file(lang, type_name, Type):
+def open_file(lang, Dialog_Title, type_name, Type):
     """Opens a file dialog for selecting a file."""
     file_path = filedialog.askopenfilename(
-        title=lang["Pick_File"],
+        title=lang[Dialog_Title],
         filetypes=[(type_name, Type)]
     )
     if file_path:

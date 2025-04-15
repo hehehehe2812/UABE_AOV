@@ -9,7 +9,7 @@
     "help": "幫助",
     "about": "關於",
     "about_text": "基於 常暗踏影 的 UnityPy_AOV 開發的 GUI 工具，可用來 解包/打包 傳說對決 assetbundle 檔案",
-    "author": "作者：幻影潛行",
+    "author": "作者：幻影潛行\n      協作者：lluevtyVN",
     "geometry_about" : "540x200",
     "lang": "語言",
     "zh_tw": "繁體中文",
@@ -18,10 +18,10 @@
     "Vietnamese": "Vietnamese",
     "No_File": " 請選擇一個檔案",
     "Pick_File": "請選擇一個ab包",
-    "Pick_Dir" : "Select an assetbundle directory.",
+    "Pick_Dir" : "請選擇一個目錄",
     "Info": "資訊",
     "List_Window_title": "AssetBundle 檢視器",
-    "File_Name" : "File Name",
+    "File_Name" : "文件名稱",
     "Name": "名稱",
     "PathID": "路徑ID",
     "Type": "類型",
@@ -44,7 +44,8 @@
     "Save_file_to": "檔案已儲存至：",
     "Info_tab": "資訊",
     "Preview_tab": "預覽",
-    "Preview_not_available": "資產\n無法\n預覽"
+    "Preview_not_available": "資產\n無法\n預覽",
+    "OBJ_Viewer_Hint": "使用OpenGL庫渲染\n左鍵：旋轉\n右鍵/Shift+左鍵：拖曳\n滾輪：縮放\nCtrl+W：切換模式"
   },
   "zh-cn": {
     "title": "传说对决UABE",
@@ -56,7 +57,8 @@
     "help": "帮助",
     "about": "关于",
     "about_text": "基于 常暗踏影 的 UnityPy_AOV 开发的 GUI 工具，可用来 解包/打包 传说对决 assetbundle 档案",
-    "author": "作者：幻影潜行",
+    "author": "作者：幻影潜行\n      協作者：lluevtyVN",
+    "geometry_about" : "540x200",
     "lang": "语言",
     "zh_tw": "正体中文",
     "zh_cn": "简体中文",
@@ -64,10 +66,10 @@
     "Vietnamese": "Vietnamese",
     "No_File": " 请选择一个档案",
     "Pick_File": "请选择一个ab包",
-    "Pick_Dir" : "Select an assetbundle directory.", 
+    "Pick_Dir" : "请选择一个目录", 
     "Info": "信息",
     "List_Window_title": "AssetBundle 检视器",
-    "File_Name" : "File Name",
+    "File_Name" : "文件名称",
     "Name": "名称",
     "PathID": "路径ID",
     "Type": "类型",
@@ -90,7 +92,8 @@
     "Save_file_to": "档案已储存至：",
     "Info_tab": "信息",
     "Preview_tab": "预览",
-    "Preview_not_available": "资产\n无法\n预览"
+    "Preview_not_available": "资产\n无法\n预览",
+    "OBJ_Viewer_Hint": "使用OpenGL库渲染\n左键：旋转\n右键/Shift+左键：拖曳\n滚轮：缩放\nCtrl+W：切换模式"
   },
   "en": {
     "title": "Arena of Valor UABE",
@@ -102,8 +105,8 @@
     "help": "Help",
     "about": "About",
     "about_text": "A GUI tool developed based on UnityPy_AOV by HEXAOV, which can be used to unpack/pack Arena of Valor assetbundle files",
-    "author": "Author: Phantom_Sneak",
-    "geometry_about" : "540x200",
+    "author": "Author: PhantomSneak\n Collaborators: lluevtyVN",
+    "geometry_about" : "540x220",
     "lang": "Language",
     "zh_tw": "Traditional Chinese",
     "zh_cn": "Simplified Chinese",
@@ -126,6 +129,7 @@
     "Save": "Save and exit",
     "Pick_Output_Folder": "Select Output Folder",
     "Pick_Input_Raw": "Select .dat file",
+    "Pick_Input_Texture": "Select .png file",
     "Dialog_Title": "Hint",
     "Dialog_Message_Export_Complete": "Export completed!",
     "Dialog_Message_Select_One_Raw": "Please select \"one\" raw! ",
@@ -136,7 +140,8 @@
     "Save_file_to": "File saved to:",
     "Info_tab": "Info",
     "Preview_tab": "Preview",
-    "Preview_not_available": "Preview\nnot\navailable"
+    "Preview_not_available": "Preview\nnot\navailable",
+    "OBJ_Viewer_Hint": "Rendered using OpenGL library\nMouse Left: Rotate\nMouse Right/Shift+Mouse Left: Drag\nWheel: Zoom\nCtrl+W：Wireframe"
   },
   "vn": {
     "title": "Arena of Valor UABE",
@@ -148,7 +153,7 @@
     "help": "Trợ Giúp",
     "about": "Giới Thiệu",
     "about_text": "Phần mền được phát triển dựa trên UnityPy_AOV bởi HEXAOV, nó sử dụng để giải nén/nén các tệp assetbundle của Arena of Valor\n(Phần tiếng việt do lluevty mod viết)",
-    "author": "Tác giả: Phantom_Sneak",
+    "author": "Tác giả: PhantomSneak\n Cộng tác viên: lluevtyVN",
     "geometry_about" : "540x250",
     "lang": "Ngôn Ngữ",
     "zh_tw": "Tiếng Trung Phồn Thể",
@@ -172,6 +177,7 @@
     "Save": "Lưu và Thoát",
     "Pick_Output_Folder": "Chọn Thư Mục Đầu Ra",
     "Pick_Input_Raw": "Chọn tệp .dat",
+    "Pick_Input_Texture": "Chọn tệp .png",
     "Dialog_Title": "Gợi Ý",
     "Dialog_Message_Export_Complete": "Xuất hoàn tất!",
     "Dialog_Message_Select_One_Raw": "Vui lòng chọn \"một\" raw!",
@@ -182,6 +188,7 @@
     "Save_file_to": "Tệp được lưu vào:",
     "Info_tab": "Thông Tin",
     "Preview_tab": "Xem Trước",
-    "Preview_not_available": "Xem trước\nkhông\ncó sẵn"
+    "Preview_not_available": "Xem trước\nkhông\ncó sẵn",
+    "OBJ_Viewer_Hint": "Kết xuất bằng thư viện OpenGL\nChuột trái: Xoay\nChuột phải/Shift+Chuột trái: Kéo\nBánh xe: Thu phóng\nCtrl+W：Khung dây"
   }
 }

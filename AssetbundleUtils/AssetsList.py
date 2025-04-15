@@ -11,7 +11,7 @@ from AssetbundleUtils import UnityPy_AOV
 
 
 list_window = None  # 避免重複開啟視窗
-global current_sort_col, ascending
+global current_sort_col, ascending, small_hint_text_label
 env_list = []  # 全域變數儲存 UnityPy 環境
 current_sort_col = "Name"
 ascending = True
@@ -22,7 +22,7 @@ indexFile = 0
 list_path = []
 
 def list_assets_window(input_path , IsInputDir = False):
-    global list_window,name_file_entry, name_entry, path_id_entry, type_entry, env, preview_label, obj_viewer , isDir
+    global list_window,name_file_entry, name_entry, path_id_entry, type_entry, env, preview_label, obj_viewer , isDir, small_hint_text_label
     isDir = IsInputDir
     if list_window and list_window.winfo_exists():
         list_window.lift()
@@ -92,6 +92,18 @@ def list_assets_window(input_path , IsInputDir = False):
     obj_viewer.config(width=1, height=1)  # 初始化時縮到極小，避免影響 UI
     preview_label.place(relx=0.5, rely=0.5, anchor="center")
     obj_viewer.place(relx=0.5, rely=0.5, anchor="center")
+
+    # OBJ Viewer Hint
+
+    hint_text = lang["OBJ_Viewer_Hint"]
+
+    small_hint_text_label = tk.Label(
+        preview_tab,
+        text=hint_text,
+        font=("Microsoft JhengHei", 10),  # 字體小一點
+        bg="#F0F0F0",
+        justify="left"
+    )
 
     # 第一排按鈕
     btn_frame = tk.Frame(info_tab, bg="#F0F0F0")
@@ -265,13 +277,16 @@ def on_item_selected(lang, tree, notebook):
                 preview_label.image = img
                 obj_viewer.config(width=1, height=1)  # 縮到極小，避免未初始化而報錯
                 preview_label.place(relx=0.5, rely=0.5, anchor="center")  # 置中顯示
+                small_hint_text_label.place_forget()  # 隱藏提示文字
             else:
                 preview_label.config(image="", text=lang["Preview_not_available"])
                 obj_viewer.config(width=1, height=1)  # 縮到極小，避免未初始化而報錯
+                small_hint_text_label.place_forget()  # 隱藏提示文字
         elif asset_type.lower() == "mesh":
             obj_data = AssetbundleUtils.PreviewAsset.preview_assets(path_id)
             if notebook.index(notebook.select()) == 1:  # Preview 分頁索引
                 if obj_data:
+                    small_hint_text_label.place(relx=0.0, rely=1.0, anchor="sw", x=10, y=-10)  # 顯示提示文字 # 左下角
                     obj_viewer.config(width=230, height=230)  # 確保大小正常
                     obj_viewer.pack(expand=True)
                     obj_viewer.load_obj_data(obj_data)
@@ -279,11 +294,13 @@ def on_item_selected(lang, tree, notebook):
                 else:
                     preview_label.config(image="", text=lang["Preview_not_available"])
                     obj_viewer.config(width=1, height=1)  # 縮到極小，避免未初始化而報錯
+                    small_hint_text_label.place_forget()  # 隱藏提示文字
 
         else:
             preview_label.config(image="", text=lang["Preview_not_available"])
             obj_viewer.config(width=1, height=1)  # 縮到極小，避免未初始化而報錯
             preview_label.place(relx=0.5, rely=0.5, anchor="center")  # 置中顯示
+            small_hint_text_label.place_forget()  # 隱藏提示文字
 
     else:
         # 如果沒有選擇項目，也要更新 AssetOperations 中的 selected_items

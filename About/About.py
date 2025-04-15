@@ -34,7 +34,7 @@ def About():
     title_label = tk.Label(about_window, text=lang["title"], font=("Microsoft YaHei", 23, "bold"))
     title_label.grid(row=0, column=0, padx=20, pady=10, sticky="w")
     
-    version_label = tk.Label(about_window, text="Version : 1.0.2", font=("Microsoft YaHei", 13))
+    version_label = tk.Label(about_window, text="Version : 1.0.3", font=("Microsoft YaHei", 13))
     version_label.grid(row=0, column=1, padx=20, pady=10, sticky="w")
     
     desc_label = tk.Label(

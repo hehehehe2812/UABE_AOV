@@ -137,6 +137,24 @@ def list_assets_window(input_path , IsInputDir = False):
     
     export_mesh_btn = tk.Button(btn_frame3, text=lang["Export_Mesh"], command=lambda: AssetbundleUtils.AssetOperations.export_mesh(lang))
     export_mesh_btn.pack(fill="x", padx=5)  # 讓按鈕完全填滿
+
+    # Khung chứa các nút FBX
+btn_frame_fbx = tk.Frame(info_tab, bg="#F0F0F0")
+btn_frame_fbx.pack(fill="x", pady=5, padx=20)
+export_fbx_btn = tk.Button(btn_frame_fbx, text=lang["Export_FBX"],
+                           command=lambda: AssetbundleUtils.AssetOperations.export_fbx_full(lang))
+export_fbx_btn.pack(fill="x", padx=5)
+import_fbx_btn = tk.Button(btn_frame_fbx, text=lang["Import_FBX"],
+                           command=lambda: AssetbundleUtils.AssetOperations.import_fbx_full(lang))
+import_fbx_btn.pack(fill="x", padx=5)
+
+# Khung chứa nút Batch Export
+btn_frame_batch = tk.Frame(info_tab, bg="#F0F0F0")
+btn_frame_batch.pack(fill="x", pady=5, padx=20)
+batch_export_btn = tk.Button(btn_frame_batch, text=lang["Batch_Export_All_Models"],
+                             command=lambda: AssetbundleUtils.AssetOperations.batch_export_all_models(lang))
+batch_export_btn.pack(fill="x", padx=5)
+
     
     # 增加間距
     tk.Frame(info_tab, height=10, bg="#F0F0F0").pack(fill="x") 

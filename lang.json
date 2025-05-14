@@ -1,5 +1,11 @@
 {
   "zh-tw": {
+    "Export_FBX": "匯出FBX完整模型",
+    "Import_FBX": "匯入FBX完整模型",
+    "Batch_Export_All_Models": "批量匯出所有模型",
+    "Pick_Input_FBX": "選擇輸入的FBX檔案",
+    "Dialog_Message_Select_One_Model": "請先選擇一個模型",
+    "Dialog_Message_Import_Complete": "匯入完成",
     "title": "傳說對決UABE",
     "file": "檔案",
     "open_file": "開啟檔案",
@@ -48,6 +54,12 @@
     "OBJ_Viewer_Hint": "使用OpenGL庫渲染\n左鍵：旋轉\n右鍵/Shift+左鍵：拖曳\n滾輪：縮放\nCtrl+W：切換模式"
   },
   "zh-cn": {
+    "Export_FBX": "导出FBX完整模型",
+    "Import_FBX": "导入FBX完整模型",
+    "Batch_Export_All_Models": "批量导出所有模型",
+    "Pick_Input_FBX": "选择FBX文件",
+    "Dialog_Message_Select_One_Model": "请先选择一个模型",
+    "Dialog_Message_Import_Complete": "导入完成",
     "title": "传说对决UABE",
     "file": "文件",
     "open_file": "打开文件",
@@ -96,6 +108,12 @@
     "OBJ_Viewer_Hint": "使用OpenGL库渲染\n左键：旋转\n右键/Shift+左键：拖曳\n滚轮：缩放\nCtrl+W：切换模式"
   },
   "en": {
+    "Export_FBX": "Export FBX (Full)",
+    "Import_FBX": "Import FBX (Full)",
+    "Batch_Export_All_Models": "Batch Export All Models",
+    "Pick_Input_FBX": "Select FBX file",
+    "Dialog_Message_Select_One_Model": "Please select one model",
+    "Dialog_Message_Import_Complete": "Import Complete",
     "title": "Arena of Valor UABE",
     "file": "File",
     "open_file": "Open File",
@@ -144,6 +162,12 @@
     "OBJ_Viewer_Hint": "Rendered using OpenGL library\nMouse Left: Rotate\nMouse Right/Shift+Mouse Left: Drag\nWheel: Zoom\nCtrl+W：Wireframe"
   },
   "vn": {
+    "Export_FBX": "Xuất FBX đầy đủ",
+    "Import_FBX": "Nhập FBX đầy đủ",
+    "Batch_Export_All_Models": "Xuất hàng loạt tất cả mô hình",
+    "Pick_Input_FBX": "Chọn tệp FBX",
+    "Dialog_Message_Select_One_Model": "Vui lòng chọn một mô hình",
+    "Dialog_Message_Import_Complete": "Đã nhập hoàn tất",
     "title": "Arena of Valor UABE",
     "file": "Tệp",
     "open_file": "Mở Tệp",

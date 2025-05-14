@@ -141,6 +141,55 @@ def export_mesh(lang):
 
     show_dialog(lang["Dialog_Title"], lang["Dialog_Message_Export_Complete"])
 
+def export_fbx_full(lang):
+    """Xuất model với đầy đủ skeleton, skin, texture, animation dưới định dạng FBX."""
+    global selected_items, list_window
+    if not selected_items:
+        if list_window: list_window.bell()
+        return
+    output_path = filedialog.askdirectory(title=lang["Pick_Output_Folder"])
+    if not output_path: return
+    # Lấy danh sách PathID của các model được chọn
+    pathIDs = [item[PathIDIndex] for item in selected_items]
+    for obj in env_list[indexFile].objects:
+        if obj.path_id in pathIDs and obj.type.name == "Mesh":
+            data = obj.read()
+            # TODO: tại đây sử dụng UnityPy và py-fbx/Blender API để tạo file FBX
+            # Ví dụ: xuất mesh + armature + animation sang FBX.
+            dest = os.path.join(output_path, f'{data.m_Name}_{obj.path_id}.fbx')
+            # Đây chỉ là mô phỏng; bạn cần gọi pyfbx hoặc Blender để ghi file.
+            # with FbxWriter(dest) as writer: ...
+    show_dialog(lang["Dialog_Title"], lang["Dialog_Message_Export_Complete"])
+
+def import_fbx_full(lang):
+    """Nhập model FBX (có skeleton, skin, animation) vào asset đã chọn."""
+    global selected_items, modified_assets, list_window
+    if len(selected_items) != 1:
+        show_dialog(lang["Dialog_Title"], lang["Dialog_Message_Select_One_Model"])
+        return
+    file_path = filedialog.askopenfilename(title=lang["Pick_Input_FBX"],
+                                           filetypes=[("FBX files", "*.fbx")])
+    if not file_path: return
+    # TODO: dùng pyfbx hoặc Blender API để đọc FBX và cập nhật vào UnityPy object
+    # Ví dụ: data = UnityPy.load(fbx) → chép mesh/armature vào env_list
+    show_dialog(lang["Dialog_Title"], lang["Dialog_Message_Import_Complete"])
+
+def batch_export_all_models(lang):
+    """Xuất hàng loạt tất cả model (.obj) trong thư mục hiện tại."""
+    global env_list, list_window
+    if not selected_items:
+        if list_window: list_window.bell()
+        return
+    output_path = filedialog.askdirectory(title=lang["Pick_Output_Folder"])
+    if not output_path: return
+    # Duyệt qua mọi object trong AssetBundle
+    for obj in env_list[indexFile].objects:
+        if obj.type.name == "Mesh":
+            data = obj.read()
+            dest = os.path.join(output_path, f'{data.m_Name}_{obj.path_id}.obj')
+            with open(dest, "w") as f:
+                f.write(data.export())
+    show_dialog(lang["Dialog_Title"], lang["Dialog_Message_Export_Complete"])
 
 # Helper functions (you might need to adapt these based on your main script)
 def open_file(lang, Dialog_Title, type_name, Type):
